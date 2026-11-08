@@ -84,6 +84,12 @@
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-otras">
             <p class="text-gray-500 text-sm col-span-full text-center">Cargando catálogo desde Google Sheets...</p>
         </div>
+        
+        <!-- Sección Galletas -->
+<h2 class="text-2xl md:text-3xl font-bold mb-6 border-b-2 border-[#e6d5c3] pb-2 text-[#5c4a3d] mt-12">Nuestras Galletas</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="grid-galletas">
+    <!-- El espacio vacío donde aparecerán los productos -->
+</div>
     </main>
 
     <!-- Botón Flotante del Carrito -->
@@ -216,11 +222,12 @@
             const gridPonques = document.getElementById('grid-ponques');
             const gridCoffee = document.getElementById('grid-coffeecakes');
             const gridOtras = document.getElementById('grid-otras');
+            const gridGalletas = document.getElementById('grid-galletas'); // NUEVO
 
-            gridPonques.innerHTML = '';
-            gridCoffee.innerHTML = '';
-            gridOtras.innerHTML = '';
-
+            if(gridPonques) gridPonques.innerHTML = '';
+            if(gridCoffee) gridCoffee.innerHTML = '';
+            if(gridOtras) gridOtras.innerHTML = '';
+            if(gridGalletas) gridGalletas.innerHTML = ''; // NUEVO
             productos.forEach(p => {
                 // Filtrar solo productos activos (TRUE o true)
                 const estaActivo = (p.activo === true || p.activo === 'TRUE' || p.activo === 'true');
@@ -245,9 +252,10 @@
                     </div>
                 `;
 
-                if (p.categoria === 'ponques') gridPonques.innerHTML += html;
-                else if (p.categoria === 'coffeecakes') gridCoffee.innerHTML += html;
-                else if (p.categoria === 'otras') gridOtras.innerHTML += html;
+                if (p.categoria === 'ponques' && gridPonques) gridPonques.innerHTML += html;
+                else if (p.categoria === 'coffeecakes' && gridCoffee) gridCoffee.innerHTML += html;
+                else if (p.categoria === 'otras' && gridOtras) gridOtras.innerHTML += html;
+                else if (p.categoria === 'galletas' && gridGalletas) gridGalletas.innerHTML += html; // NUEVO
             });
         }
 
