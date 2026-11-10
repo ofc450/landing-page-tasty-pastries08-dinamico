@@ -14,7 +14,7 @@
     <!-- CONFIGURACIÓN DE HERRAMIENTAS DE MÉTRICAS -->
     <!-- ========================================== -->
 
-    <!-- 1. Google Analytics 4 -->
+    <!-- 1. Google Analytics 4 (Mide visitas, páginas vistas y comportamiento general) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
     <script>
       window.dataLayer = window.dataLayer || [];
@@ -23,7 +23,7 @@
       gtag('config', 'G-XXXXXXXXXX');
     </script>
 
-    <!-- 2. Meta Pixel -->
+    <!-- 2. Meta Pixel (Mide clics y tráfico proveniente de Instagram y Facebook) -->
     <script>
       !function(f,b,e,v,n,t,s)
       {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
@@ -70,25 +70,19 @@
         <!-- Sección Ponqués -->
         <h2 class="text-2xl md:text-3xl font-bold mb-6 border-b-2 border-[#e6d5c3] pb-2 text-[#5c4a3d]">Nuestros Irresistibles Ponqués</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="grid-ponques">
-            <p class="text-gray-500 text-sm col-span-full text-center">Cargando catálogo desde Google Sheets...</p>
+            <!-- Productos generados por JS -->
         </div>
 
         <!-- Sección Coffee Cakes -->
         <h2 class="text-2xl md:text-3xl font-bold mb-6 border-b-2 border-[#e6d5c3] pb-2 text-[#5c4a3d]">Nuestros Especiales Coffee Cakes</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="grid-coffeecakes">
-            <p class="text-gray-500 text-sm col-span-full text-center">Cargando catálogo desde Google Sheets...</p>
+            <!-- Productos generados por JS -->
         </div>
 
         <!-- Sección Otras Delicias -->
         <h2 class="text-2xl md:text-3xl font-bold mb-6 border-b-2 border-[#e6d5c3] pb-2 text-[#5c4a3d]">Otras Delicias Irresistibles</h2>
         <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="grid-otras">
-            <p class="text-gray-500 text-sm col-span-full text-center">Cargando catálogo desde Google Sheets...</p>
-        </div>
-        
-        <!-- Sección Harina de Almendras -->
-        <h2 class="text-2xl md:text-3xl font-bold mb-6 border-b-2 border-[#e6d5c3] pb-2 text-[#5c4a3d] mt-12">Nuestros Ponqués de Harina de Almendra</h2>
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-12" id="grid-harinadealmendras">
-            <!-- El espacio vacío donde aparecerán los productos -->
+            <!-- Productos generados por JS -->
         </div>
     </main>
 
@@ -164,11 +158,29 @@
         </div>
     </div>
 
-    <!-- Script de lógica conectada a Google Sheets -->
+    <!-- Script de lógica e inventario con control de activo/inactivo -->
     <script>
-        const API_URL = 'https://script.google.com/macros/s/AKfycbwjKgSWsAP19uJmy2DFfSK2YC9QJeqWHU-5q-ulgqt9hswBBw9J_5cUF04sCQ-MGtkOsA/exec';
+        const productos = [
+            // Ponqués (cambia activo a false para pausar la venta temporalmente)
+            { id: 1, categoria: 'ponques', nombre: '🥕 Ponqué de Zanahoria', desc: 'Un clásico lleno de sabor y suavidad.', precio: 27, activo: true, img: 'Gemini_Generated_Image (3).jpeg' },
+            { id: 2, categoria: 'ponques', nombre: '🍫 Ponqué de Chocolate', desc: 'El placer intenso que todos aman.', precio: 24, activo: true, img: 'Gemini_Generated_Image (8).jpeg' },
+            { id: 3, categoria: 'ponques', nombre: '⚪️🟫 Ponqué Marmoleado', desc: 'La combinación perfecta de vainilla y chocolate.', precio: 24, activo: true, img: 'Copia de importante (3).jpg' },
+            { id: 4, categoria: 'ponques', nombre: '🍊 Ponqué de Naranja', desc: 'Fresco y cítrico, ideal para energizar tu día.', precio: 20, activo: true, img: 'Copia de importante (5).jpg' },
+            { id: 5, categoria: 'ponques', nombre: '🍋 Ponqué de Limón', desc: 'Un toque de acidez y dulzura que deleita.', precio: 24, activo: true, img: '' },
+            { id: 6, categoria: 'ponques', nombre: '🎃 Ponqué de Auyama', desc: 'Suave y especiado, una delicia reconfortante.', precio: 26, activo: true, img: 'Gemini_Generated_Image (1).jpeg' },
+            { id: 7, categoria: 'ponques', nombre: '💜 Ponqué de Parchita', desc: 'Exótico y vibrante, una explosión de sabor.', precio: 24, activo: true, img: 'Copia de importante (9).jpg' },
+            
+            // Coffee Cakes
+            { id: 8, categoria: 'coffeecakes', nombre: '🍎 Apple Coffee Cake', desc: 'Trozos de manzana y canela en un pastel irresistible.', precio: 30, activo: true, img: 'Gemini_Generated_Image (2).jpeg' },
+            { id: 9, categoria: 'coffeecakes', nombre: '🍇 Blackberry Coffee Cake', desc: 'El dulzor de las moras con el toque crujiente del crumble.', precio: 30, activo: true, img: '' },
+            { id: 10, categoria: 'coffeecakes', nombre: '🌟 4 Delicias', desc: 'Cambur, manzana verde, nueces y pasas en un solo ponqué.', precio: 26, activo: true, img: 'Gemini_Generated_Image.jpeg' },
+            { id: 11, categoria: 'coffeecakes', nombre: '🧡 Cinnamon Coffee Cake', desc: 'El aroma y sabor reconfortante de la canela.', precio: 24, activo: true, img: '' },
 
-        let productos = [];
+            // Otras Delicias
+            { id: 12, categoria: 'otras', nombre: '🍫 Brownie de Batata', desc: 'Una opción innovadora, fudgy y llena de sabor.', precio: 28, activo: true, img: 'Gemini_Generated_Image (4).jpeg' },
+            { id: 13, categoria: 'otras', nombre: '🍮 Quesillo (300g)', desc: 'Tradicional, cremoso y perfecto para consentirte.', precio: 8, activo: true, img: '' }
+        ];
+
         let carrito = {};
         let tasaBcv = 0;
         let fechaHoraStr = "";
@@ -206,35 +218,15 @@
             actualizarTotales();
         }
 
-        // Cargar productos desde Google Sheets
-        async function cargarProductosSheets() {
-            try {
-                const res = await fetch(API_URL);
-                productos = await res.json();
-                renderProductos();
-            } catch (error) {
-                console.error("Error al cargar productos:", error);
-                document.getElementById('grid-ponques').innerHTML = `<p class="text-red-500 text-sm col-span-full">Error al cargar productos.</p>`;
-            }
-        }
-
         function renderProductos() {
             const gridPonques = document.getElementById('grid-ponques');
             const gridCoffee = document.getElementById('grid-coffeecakes');
             const gridOtras = document.getElementById('grid-otras');
-            const gridHarina = document.getElementById('grid-harinadealmendras');
 
-            if(gridPonques) gridPonques.innerHTML = '';
-            if(gridCoffee) gridCoffee.innerHTML = '';
-            if(gridOtras) gridOtras.innerHTML = '';
-            if(gridHarina) gridHarina.innerHTML = ''; 
-            
             productos.forEach(p => {
-                // Filtrar solo productos activos (TRUE o true)
-                const estaActivo = (p.activo === true || p.activo === 'TRUE' || p.activo === 'true');
-                if (!estaActivo) return;
+                // Si el producto está inactivo (activo: false), no se muestra en la web
+                if (p.activo === false) return;
 
-                const precioNum = parseFloat(p.precio) || 0;
                 const imgTag = p.img ? `<img src="${p.img}" alt="${p.nombre}" class="w-full h-56 object-cover" onerror="this.style.display='none'">` : `<div class="w-full h-56 bg-[#f4ebe1] flex items-center justify-center text-gray-400 font-medium">Foto Próximamente</div>`;
                 
                 const html = `
@@ -247,16 +239,15 @@
                             </div>
                         </div>
                         <div class="p-5 pt-0 flex justify-between items-center">
-                            <span class="text-xl font-bold text-[#3d8b6b]">${precioNum}$</span>
+                            <span class="text-xl font-bold text-[#3d8b6b]">${p.precio}$</span>
                             <button onclick="agregarAlCarrito(${p.id})" class="bg-[#5c4a3d] text-white px-4 py-2 rounded-xl text-sm font-bold hover:bg-[#4a3f35] transition">Agregar</button>
                         </div>
                     </div>
                 `;
 
-                if (p.categoria === 'ponques' && gridPonques) gridPonques.innerHTML += html;
-                else if (p.categoria === 'coffeecakes' && gridCoffee) gridCoffee.innerHTML += html;
-                else if (p.categoria === 'otras' && gridOtras) gridOtras.innerHTML += html;
-                else if (p.categoria === 'almendras' && gridHarina) gridHarina.innerHTML += html;
+                if (p.categoria === 'ponques') gridPonques.innerHTML += html;
+                else if (p.categoria === 'coffeecakes') gridCoffee.innerHTML += html;
+                else if (p.categoria === 'otras') gridOtras.innerHTML += html;
             });
         }
 
@@ -264,10 +255,8 @@
             if (carrito[id]) {
                 carrito[id].cantidad++;
             } else {
-                const prod = productos.find(p => p.id == id);
-                if (prod) {
-                    carrito[id] = { ...prod, precio: parseFloat(prod.precio) || 0, cantidad: 1 };
-                }
+                const prod = productos.find(p => p.id === id);
+                carrito[id] = { ...prod, cantidad: 1 };
             }
             actualizarCarritoUI();
             
@@ -277,7 +266,6 @@
         }
 
         function cambiarCantidad(id, delta) {
-            if (!carrito[id]) return;
             carrito[id].cantidad += delta;
             if (carrito[id].cantidad <= 0) {
                 delete carrito[id];
@@ -331,87 +319,4 @@
             let costoDelivery = 0;
             if (tipoEntrega === 'delivery') {
                 costoDelivery = 4;
-                filaDelivery.style.display = 'flex';
-            } else {
-                filaDelivery.style.display = 'none';
-            }
-
-            const totalUsd = subtotal + costoDelivery;
-            document.getElementById('txt-total').innerText = `$${totalUsd}`;
-
-            if (tasaBcv > 0) {
-                const totalBs = totalUsd * tasaBcv;
-                document.getElementById('txt-total-bs').innerText = `Bs. ${totalBs.toLocaleString('es-VE', {minimumFractionDigits: 2, maximumFractionDigits: 2})}`;
-            } else {
-                document.getElementById('txt-total-bs').innerText = 'Bs. --';
-            }
-        }
-
-        function toggleCarrito() {
-            const panel = document.getElementById('panel-carrito');
-            panel.classList.toggle('hidden');
-        }
-
-        function enviarWhatsApp() {
-            const ids = Object.keys(carrito);
-            if (ids.length === 0) {
-                alert('Por favor agrega al menos un postre a tu pedido.');
-                return;
-            }
-
-            const nombre = document.getElementById('cliente-nombre').value.trim();
-            const telefono = document.getElementById('cliente-telefono').value.trim();
-            const tipoEntrega = document.getElementById('tipo-entrega').value;
-            const metodoPago = document.getElementById('metodo-pago').value;
-
-            let subtotal = 0;
-            let mensaje = `¡Hola! Quiero hacer un pedido a Tasty Pastries:%0A`;
-            
-            ids.forEach(id => {
-                const item = carrito[id];
-                const totalItem = item.precio * item.cantidad;
-                subtotal += totalItem;
-                mensaje += `• ${item.cantidad}x ${item.nombre} ($${totalItem})%0A`;
-            });
-
-            mensaje += `---------------------------%0ASubtotal: $${subtotal}%0A`;
-
-            let costoDelivery = 0;
-            if (tipoEntrega === 'delivery') {
-                costoDelivery = 4;
-                mensaje += `Delivery (hasta 18 km): $4%0A`;
-            } else {
-                mensaje += `Modalidad: Pick-up (Retirar en tienda)%0A`;
-            }
-
-            const totalFinal = subtotal + costoDelivery;
-            mensaje += `*Total a Pagar:* $${totalFinal}%0A`;
-            
-            if (tasaBcv > 0) {
-                const totalBs = totalFinal * tasaBcv;
-                mensaje += `*Total en Bolívares:* Bs. ${totalBs.toLocaleString('es-VE', {minimumFractionDigits: 2, maximumFractionDigits: 2})} _(Tasa BCV: Bs. ${tasaBcv.toFixed(2)})_%0A`;
-            }
-
-            mensaje += `Método de Pago: ${metodoPago}%0A`;
-
-            if (nombre) mensaje += `Nombre: ${nombre}%0A`;
-            if (telefono) mensaje += `Teléfono: ${telefono}%0A`;
-            
-            mensaje += `Fecha y hora: ${fechaHoraStr}%0A`;
-
-            const numeroWhatsApp = "584121287039"; 
-            window.open(`https://wa.me/${numeroWhatsApp}?text=${mensaje}`, '_blank');
-
-            // Vaciar el carrito, actualizar la vista y ocultar el panel
-            carrito = {};
-            actualizarCarritoUI();
-            document.getElementById('panel-carrito').classList.add('hidden');
-        }
-
-        window.onload = function() {
-            cargarProductosSheets();
-            obtenerTasaBCV();
-        };
-    </script>
-</body>
-</html>
+           
